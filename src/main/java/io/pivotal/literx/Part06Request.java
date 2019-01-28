@@ -33,14 +33,18 @@ public class Part06Request {
 
 	// TODO Return a Flux with all users stored in the repository that prints automatically logs for all Reactive Streams signals
 	Flux<User> fluxWithLog() {
-		return null;
+		return repository.findAll()
+				.log();
 	}
 
 //========================================================================================
 
 	// TODO Return a Flux with all users stored in the repository that prints "Starring:" on subscribe, "firstname lastname" for all values and "The end!" on complete
 	Flux<User> fluxWithDoOnPrintln() {
-		return null;
+		return repository.findAll()
+				.doOnSubscribe(sub -> System.out.println("Starring:"))
+				.doOnEach(user -> System.out.println("firstname lastname"))
+				.doOnComplete(() -> System.out.println("The end!"));
 	}
 
 }
